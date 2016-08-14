@@ -1,23 +1,13 @@
-require 'pry'
-
 class Array
   def keep
-    new_arr = []
-    self.each do |f| 
-      if yield f
-        new_arr << f
-      end
+    each_with_object([]) do |element, arr|
+      arr.push(element) if yield element
     end
-    new_arr
   end
 
   def discard
-    new_arr = []
-    self.each do |f| 
-      unless yield f
-        new_arr << f
-      end
+    each_with_object([]) do |element, arr|
+      arr.push(element) unless yield element
     end
-    new_arr
   end
 end
